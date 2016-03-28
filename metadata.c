@@ -337,6 +337,16 @@ GetAudioMetadata(const char *path, char *name)
 		strcpy(type, "pcm");
 		m.mime = strdup("audio/L16");
 	}
+	else if( ends_with(path, ".dsf") )
+	{
+		strcpy(type, "dsf");
+		m.mine = strdup("audio/x-dsd");
+	}
+	else if( ends_with(path, ".dff") )
+	{
+		strcpy(type, "dff");
+		m.mine = strdup("audio/x-dsd");
+	}
 	else
 	{
 		DPRINTF(E_WARN, L_METADATA, "Unhandled file extension on %s\n", path);
