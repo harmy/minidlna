@@ -340,12 +340,12 @@ GetAudioMetadata(const char *path, char *name)
 	else if( ends_with(path, ".dsf") )
 	{
 		strcpy(type, "dsf");
-		m.mine = strdup("audio/x-dsd");
+		m.mime = strdup("audio/x-dsd");
 	}
 	else if( ends_with(path, ".dff") )
 	{
 		strcpy(type, "dff");
-		m.mine = strdup("audio/x-dsd");
+		m.mime = strdup("audio/x-dsd");
 	}
 	else
 	{

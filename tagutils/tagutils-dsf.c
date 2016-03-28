@@ -56,26 +56,11 @@ _get_dsftags(char *file, struct song_metadata *psong)
 	FILE *fp;
 	struct id3header *pid3;
 	uint32_t len;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	unsigned char hdr[28] = {0};
 	uint64_t total_size = 0;
 	uint64_t pointer_to_metadata_chunk = 0;
 	uint64_t metadata_chunk_size = 0;
 	unsigned char *id3tagbuf = NULL;
-=======
-	unsigned char hdr[28];
-	uint64_t total_size = 0;
-	uint64_t pointer_to_metadata_chunk = 0;
-	uint64_t metadata_chunk_size = 0;
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
-	unsigned char hdr[28] = {0};
-	uint64_t total_size = 0;
-	uint64_t pointer_to_metadata_chunk = 0;
-	uint64_t metadata_chunk_size = 0;
-	unsigned char *id3tagbuf = NULL;
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 
 	//DEBUG DPRINTF(E_DEBUG,L_SCANNER,"Getting DSF file info\n");
 
@@ -102,22 +87,12 @@ _get_dsftags(char *file, struct song_metadata *psong)
 
 	total_size = GET_DSF_INT64(hdr + 12);
 	pointer_to_metadata_chunk = GET_DSF_INT64(hdr + 20);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 	metadata_chunk_size = total_size - pointer_to_metadata_chunk;
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 	
 	//DEBUG DPRINTF(E_DEBUG, L_SCANNER, "%llu\n", total_size);
 	//DEBUG DPRINTF(E_DEBUG, L_SCANNER, "%llu\n", pointer_to_metadata_chunk);
 	//DEBUG DPRINTF(E_DEBUG, L_SCANNER, "%llu\n", metadata_chunk_size);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 	//check invalid metadata
 	if(total_size == 0)
 	{
@@ -126,7 +101,6 @@ _get_dsftags(char *file, struct song_metadata *psong)
 		return 0;
 	}
 
-<<<<<<< HEAD
 	if(pointer_to_metadata_chunk == 0)
 	{
 		fclose(fp);
@@ -142,38 +116,11 @@ _get_dsftags(char *file, struct song_metadata *psong)
 	{
 		fclose(fp);
 		DPRINTF(E_INFO, L_SCANNER, "Invalid PointerToMetadata in %s\n", file);
-=======
-	if(pointer_to_metadata_chunk == 0)
-	{
-		fclose(fp);
-		DPRINTF(E_INFO, L_SCANNER, "Metadata doesn’t exist %s\n", file);
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
-	if(pointer_to_metadata_chunk == 0)
-	{
-		fclose(fp);
-		DPRINTF(E_INFO, L_SCANNER, "Metadata doesn't exist %s\n", file);
-		return 0;
-	}
-
-	if(total_size > pointer_to_metadata_chunk)
-	{
-		metadata_chunk_size = total_size - pointer_to_metadata_chunk;
-	}
-	else
-	{
-		fclose(fp);
-		DPRINTF(E_INFO, L_SCANNER, "Invalid PointerToMetadata in %s\n", file);
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 		return 0;
 	}
 
 	fseeko(fp, pointer_to_metadata_chunk,SEEK_SET);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 	id3tagbuf = (unsigned char *)malloc(sizeof(unsigned char)*metadata_chunk_size);
 	if(id3tagbuf == NULL)
 	{
@@ -183,23 +130,10 @@ _get_dsftags(char *file, struct song_metadata *psong)
 	}
 	memset(id3tagbuf, 0,sizeof(unsigned char)*metadata_chunk_size);
 	
-<<<<<<< HEAD
 	if(!(len = fread(id3tagbuf,metadata_chunk_size,1,fp)))
 	{
 		fclose(fp);
 		free(id3tagbuf);
-=======
-	unsigned char id3tagbuf[metadata_chunk_size];	
-	if(!(len = fread(id3tagbuf,metadata_chunk_size,1,fp)))
-	{
-		fclose(fp);
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
-	if(!(len = fread(id3tagbuf,metadata_chunk_size,1,fp)))
-	{
-		fclose(fp);
-		free(id3tagbuf);
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 		DPRINTF(E_WARN, L_SCANNER, "Could not read Metadata Chunk from %s\n", file);
 		return -1;
 	}
@@ -208,18 +142,9 @@ _get_dsftags(char *file, struct song_metadata *psong)
 	
 	if(!pid3tag)
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
 		free(id3tagbuf);
-		err = errno;
-=======
 		err = errno;
 		fclose(fp);
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
-		free(id3tagbuf);
-		err = errno;
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 		errno = err;
 		DPRINTF(E_WARN, L_SCANNER, "Cannot get ID3 tag for %s\n", file);
 		return -1;
@@ -433,16 +358,8 @@ _get_dsftags(char *file, struct song_metadata *psong)
 		index++;
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	id3_tag_delete(pid3tag);
 	free(id3tagbuf);
-=======
->>>>>>> 7c0d58a... * Add support for DSD (dsf, dff) music files
-=======
-	id3_tag_delete(pid3tag);
-	free(id3tagbuf);
->>>>>>> 0f2b959... Add the confirmation for some invalid header data.
 	fclose(fp);
 	//DPRINTF(E_DEBUG, L_SCANNER, "Got id3tag successfully for file=%s\n", file);
 	return 0;

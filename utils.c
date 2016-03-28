@@ -400,7 +400,7 @@ is_audio(const char * file)
 		ends_with(file, ".m4a") || ends_with(file, ".aac")  ||
 		ends_with(file, ".mp4") || ends_with(file, ".m4p")  ||
 		ends_with(file, ".wav") || ends_with(file, ".ogg")  ||
-		ends_with(file, ".pcm") || ends_with(file, ".3gp")) ||
+		ends_with(file, ".pcm") || ends_with(file, ".3gp") ||
 		ends_with(file, ".dsf") || ends_with(file, ".dff"));
 }
 
